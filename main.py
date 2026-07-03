@@ -1,4 +1,5 @@
 from dataset import construir_dataset
+import re
 import numpy as np
 
 X, nombres = construir_dataset()
@@ -216,7 +217,8 @@ total_archivos = 0
 
 for idx_prog, (nombre_prog, acordes) in enumerate(progresiones.items(), 1):
     for dim_nombre, k in dimensiones_audio:
-        nombre_limpio = nombre_limpio = nombre_prog.replace(' ', '_').replace('(', '').replace(')', '').replace('-', '_').replace('/', '_')
+        nombre_limpio = nombre_prog.replace(' ', '_').replace('(', '').replace(')', '').replace('-', '_').replace('/', '_')
+        nombre_limpio = re.sub(r'_+', '_', nombre_limpio)
         nombre_archivo = f"{carpeta_audios}/prog_{idx_prog:02d}_{nombre_limpio}_{dim_nombre}.wav"
 
         audio = generar_audio_progresion(acordes, k=k)
