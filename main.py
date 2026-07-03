@@ -231,3 +231,4 @@ for idx_prog, (nombre_prog, acordes) in enumerate(progresiones.items(), 1):
         audio = generar_audio_progresion(acordes, k=k)
         sf.write(nombre_archivo, audio, 44100)
         total_archivos += 1
+
