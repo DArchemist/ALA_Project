@@ -215,13 +215,19 @@ if not os.path.exists(carpeta_audios):
 
 total_archivos = 0
 
+nombres_simplificados = {
+    "Ciclo de quintas (I - IV - V - I)": "ciclo_quintas",
+    "Misma raíz (C, Cm, C7, Cmaj7)": "misma_raiz",
+    "Pop/Rock (I - vi - ii - V)": "pop_rock",
+    "Sustitución de tritono (G7 -> C#7 -> C)": "tritono",
+    "Mediantes cromáticas (C -> G# -> Fm -> G)": "mediantes"
+}
+
 for idx_prog, (nombre_prog, acordes) in enumerate(progresiones.items(), 1):
     for dim_nombre, k in dimensiones_audio:
-        nombre_limpio = nombre_prog.replace(' ', '_').replace('(', '').replace(')', '').replace('-', '_').replace('/', '_')
-        nombre_limpio = re.sub(r'_+', '_', nombre_limpio)
+        nombre_limpio = nombres_simplificados[nombre_prog]
         nombre_archivo = f"{carpeta_audios}/prog_{idx_prog:02d}_{nombre_limpio}_{dim_nombre}.wav"
-
-        audio = generar_audio_progresion(acordes, k=k)
         
+        audio = generar_audio_progresion(acordes, k=k)
         sf.write(nombre_archivo, audio, 44100)
         total_archivos += 1
